@@ -1,0 +1,7 @@
+{
+  "id": "com.brian.ocarina_horse_call",
+  "name": "Ocarina Horse Call",
+  "version": "@PROJECT_VERSION@",
+  "author": "Brian",
+  "description": "Replaces the Horse Call (in hand and the Ilia charm cutscene pendant) with a low-poly blue ocarina (glossy glaze, HD texture), and calling Epona plays a custom ocarina tune with a canyon echo on the last note."
+}
