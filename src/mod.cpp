@@ -19,7 +19,7 @@
 
 #include "JSystem/JAudio2/JAISound.h"
 #include "Z2AudioLib/Z2LinkMgr.h"
-#include "Z2AudioLib/Z2SoundMgr.h"
+#include "Z2AudioLib/Z2AudioMgr.h"
 
 DEFINE_MOD();
 IMPORT_SERVICE(LogService, svc_log);
@@ -54,8 +54,13 @@ HookAction on_link_voice_pre(ModContext*, void* args, void* retval, void*) {
         return HOOK_CONTINUE;
     }
 
+    Z2AudioMgr* audio = Z2AudioMgr::getInterface();  // exported pointer (Z2GetSoundMgr's isn't)
+    if (audio == nullptr) {
+        return HOOK_CONTINUE;
+    }
+
     stop_tune();  // never stack two copies if the call is spammed
-    Z2GetSoundMgr()->startSound(JAISoundID(kStreamSection | g_streamId), g_playing, nullptr);
+    audio->startSound(JAISoundID(kStreamSection | g_streamId), g_playing, nullptr);
 
     if (retval != nullptr) {
         *static_cast<Z2SoundHandlePool**>(retval) = nullptr;
