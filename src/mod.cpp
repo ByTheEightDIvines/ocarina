@@ -43,7 +43,10 @@ void stop_tune() {
     }
 }
 
-DEFINE_HOOK(&Z2CreatureLink::startLinkVoice, LinkVoice);
+// Hooked by name: MSVC can't constant-initialize a hook record holding a pointer to a member of
+// Z2CreatureLink (it has two base classes). Signature is written receiver-first.
+DEFINE_HOOK_SYMBOL("Z2CreatureLink::startLinkVoice",
+    Z2SoundHandlePool*(Z2CreatureLink*, JAISoundID, s8), LinkVoice);
 
 HookAction on_link_voice_pre(ModContext*, void* args, void* retval, void*) {
     if (g_streamId == 0xFFFF || g_playing == nullptr) {
